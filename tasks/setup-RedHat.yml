@@ -4,7 +4,8 @@
 
 - name: Ensure dependencies are installed
   yum: name={{ item }} state=present
-   with_items: {{ packages_list }}
+  with_items: 
+   - "{{ packages_list }}"
 
 - name: Ensure Jenkins repo is installed
   get_url:

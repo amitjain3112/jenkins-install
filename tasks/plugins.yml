@@ -40,7 +40,7 @@
   notify: restart jenkins
 
 - name: Install Jenkins plugins using tokens
-  jenkins_plugins: 
+  jenkins_plugin: 
     name: "{{ item }}"
     params:
       url_token: "{{ jenkins_admin_token }}"
@@ -49,4 +49,3 @@
   with_items: "{{ jenkins_plugins }}"
   when: jenkins_admin_token != ""
   notify: restart jenkins 
-
