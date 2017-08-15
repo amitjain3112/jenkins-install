@@ -1,0 +1,24 @@
+---
+- name: Disable SELINUX
+  selinux: state=disabled
+
+- name: Ensure dependencies are installed
+  yum: name={{ item }} state=present
+   with_items: {{ packages_list }}
+
+- name: Ensure Jenkins repo is installed
+  get_url:
+    url: "{{ jenkins_repo_url }}"
+    dest: /etc/yum.repos.d/jenkins.repo
+  when: jenkins_repo_url != ''
+
+- name: Add Jenkins repo GPG key
+  rpm_key: 
+    state: present 
+    key: "{{ jenkins_repo_key_url }}"
+
+- name: Ensure Jenkins is installed.
+  package:
+    name: jenkins
+    state: "{{ jenkins_package_state }}"
+  notify: configure default users
