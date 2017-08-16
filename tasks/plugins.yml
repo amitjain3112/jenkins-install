@@ -5,7 +5,7 @@
     src: "{{ jenkins_admin_password_file }}"
   register: adminpasswordfile
   no_log: True
-  when: Jenkins_admin_password_file != ""
+  when: jenkins_admin_password_file != ""
 
 - name: Set admin password fact
   set_fact:
@@ -31,7 +31,7 @@
     params:
       url_username: "{{ jenkins_admin_username }}"
       url_password: "{{ jenkins_admin_password }}"
-    state: "{{ jenkins_plugin_state }}"
+    state: "{{ jenkins_plugins_state }}"
     timeout: "{{ jenkins_plugin_timeout }}"
     updates_expiration: "{{ jenkins_plugin_updates_expiration }}"
     url: "http://{{ jenkins_hostname }}:{{ jenkins_http_port }}{{ jenkins_url_prefix }}"
